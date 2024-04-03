@@ -1,0 +1,41 @@
+---
+title: "assignment"
+format: html
+editor: visual
+---
+
+## Quarto
+
+chcxbh
+
+dnfjfd
+
+```{r}
+install.packages("tidyverse")
+install.packages("maps")
+library(tidyverse)
+library(ggplot2)
+library(maps)
+
+map_world <- map_data("world")
+
+map_children <- full_join(unicef_indicator_1_2_, map_world, by = c("country" = "region"))
+
+#map 
+ggplot(map_children) + 
+  aes(x = long, y = lat, group = group, fill = obs_value) + 
+  geom_polygon(color = "black", size = 0.1) +  # Adjust outline color and size
+  scale_fill_gradient(name = "Percentage",   # Customize legend title
+                      low = "lightcoral",     # Adjust low color
+                      high = "darkred",     # Adjust high color
+                      na.value = "grey") + # Color for missing values
+  labs(title = "Percentage of Children Facing Deprivation",   # Map title
+       x = NULL, y = NULL,                                  # Remove axis labels
+       fill = "Percentage of Children Facing Deprivation") + # Legend label
+  theme_minimal() +  # Apply a minimal theme
+  theme(legend.position = "right",  # Change legend position
+        legend.title = element_text(size = 12, face = "bold"),  # Customize legend title appearance
+        legend.text = element_text(size = 10))  # Customize legend text appearance
+
+
+```
